@@ -42,6 +42,13 @@ def main():
                             st.image(img['src'], use_column_width=True)
                         st.markdown('---')
 
+                if st.checkbox('Show image links'):
+                    for i in selected.index:
+                        st.subheader(df.iloc[i].title)
+                        for j, img in enumerate(df.iloc[i].images):
+                            st.write(img['src'])
+                        st.markdown('---')
+
 
 
     # Hide footer
