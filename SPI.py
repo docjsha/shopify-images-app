@@ -9,7 +9,7 @@ import streamlit as st
 def main():
     st.title('Shopify Product Images')
     
-    url = st.text_input('Input website url', '')
+    url = st.text_input('Website URL:', '')
 
     if url:
         try:
@@ -22,7 +22,7 @@ def main():
             
 
         if df is None:
-            st.warning('Please check the input website is valid.')
+            st.warning('Please check the input website url is valid.')
         else:
             df = df['products'].apply(pd.Series)
             if st.checkbox('Show raw data'):
