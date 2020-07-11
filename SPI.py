@@ -35,7 +35,7 @@ def main():
                 else:
                     selected = df.loc[df.title.isin(products)]
                 
-                with st.spinner('Loading plots...'):
+                with st.spinner('Loading images...'):
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
                         for img in df.iloc[i].images:
