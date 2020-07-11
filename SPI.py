@@ -9,7 +9,7 @@ import streamlit as st
 def main():
     st.title('Shopify Product Images')
     
-    url = st.text_input('Input website:', '')
+    url = st.text_input('Input website url', '')
 
     if url:
         try:
