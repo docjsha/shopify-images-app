@@ -28,7 +28,7 @@ def main():
             if st.checkbox('Show raw data'):
                 st.write(df)
 
-            products = st.multiselect('Display products', ['ALL'] + list(df['title'].unique()))
+            products = st.multiselect('Display Products', ['ALL'] + list(df['title'].unique()))
             if products:
                 if 'ALL' in products:
                     selected = df
@@ -42,7 +42,7 @@ def main():
                             st.image(img['src'], use_column_width=True)
                         st.markdown('---')
 
-                if st.checkbox('Show image links'):
+                if st.checkbox('Show Image Links'):
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
                         for j, img in enumerate(df.iloc[i].images):
