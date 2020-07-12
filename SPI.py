@@ -27,7 +27,7 @@ def main():
             products = st.multiselect('Display Products', ['ALL'] + list(df['title'].unique()))
             if products:
                 if 'ALL' in products:
-                    selected = df
+                    selected = df.copy()
                 else:
                     selected = df.loc[df.title.isin(products)]
                 
