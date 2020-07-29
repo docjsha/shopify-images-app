@@ -11,8 +11,10 @@ def main():
         try:
             if not url.startswith('http'):
                 url = 'https://' + url
-            url += '/products.json?limit=500' if url[-1] != '/' else 'products.json?limit=500'
-            df = pd.read_json(url)
+            if not url.endswith('/'):
+                url += '/'
+            json_url = url + 'products.json?limit=500'
+            df = pd.read_json(json_url)
         except:
             df = None
             
@@ -34,6 +36,8 @@ def main():
                 with st.spinner('Loading images...'):
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
+                        st.write(f'{url}products/{df.iloc[i].handle}')
+                        st.write(df.iloc[i]['body_html'], unsafe_allow_html=True)
                         for img in df.iloc[i].images:
                             st.image(img['src'], use_column_width=True)
                         st.markdown('---')
