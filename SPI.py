@@ -6,8 +6,8 @@ def main():
     st.beta_set_page_config(
         page_title = 'SPI',
         page_icon = '🔍',
-        # layout = 'wide'
     )
+    
     st.title('Shopify Product Images')
     
     url = st.text_input('Website URL:', '')
