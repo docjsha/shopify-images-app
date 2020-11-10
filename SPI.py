@@ -42,6 +42,12 @@ def main():
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
                         st.write(f'{url}products/{df.iloc[i].handle}')
+                        try:
+                            price = df.iloc[i]['variants'][0]['price']
+                        except:
+                            price = None
+                        if price is not None:
+                            st.write(f'Price: ${price}')
                         st.write(df.iloc[i]['body_html'], unsafe_allow_html=True)
                         for img in df.iloc[i].images:
                             st.image(img['src'], use_column_width=True)
