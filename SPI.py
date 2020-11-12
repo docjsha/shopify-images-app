@@ -19,6 +19,7 @@ def main():
             if not url.endswith('/'):
                 url += '/'
             json_url = url + 'products.json?limit=500'
+            st.markdown(f'Data pulled from <a href="{json_url}">{json_url[:-10]}</a>', unsafe_allow_html=True)
             df = pd.read_json(json_url)
         except:
             df = None
