@@ -19,7 +19,6 @@ def main():
             if not url.endswith('/'):
                 url += '/'
             json_url = url + 'products.json?limit=500'
-            st.markdown(f'Data source: <a href="{json_url}">{json_url[:-10]}</a>', unsafe_allow_html=True)
             df = pd.read_json(json_url)
         except:
             df = None
@@ -28,6 +27,7 @@ def main():
         if df is None:
             st.warning('Please check the input website url is valid.')
         else:
+            st.markdown(f'Data source: <a href="{json_url}">{json_url[:-10]}</a>', unsafe_allow_html=True)
             df = df['products'].apply(pd.Series)
             if st.checkbox('Show raw data'):
                 st.write(df)
