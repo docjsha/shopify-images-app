@@ -31,14 +31,15 @@ def main():
             df = df['products'].apply(pd.Series)
             if st.checkbox('Show raw data'):
                 st.write(df)
+            
+            products = st.multiselect('Select Products', ['ALL'] + list(df['title'].unique()))
+            keyword = st.text_input('Search for Products', '')
 
-            products = st.multiselect('Display Products', ['ALL'] + list(df['title'].unique()))
             if products:
                 if 'ALL' in products:
                     selected = df.copy()
                 else:
-                    selected = df.loc[df.title.isin(products)]
-                
+                    selected = df.loc[df.title.isin(products)]             
                 with st.spinner('Loading images...'):
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
@@ -53,13 +54,30 @@ def main():
                         for img in df.iloc[i].images:
                             st.image(img['src'], use_column_width=True)
                         st.markdown('---')
-
-                if st.checkbox('Show Image Links'):
+            elif keyword:
+                df['lower'] = df.title.str.lower()
+                keyword = [x.lower() for x in keyword.split()]
+                selected = df.loc[df.lower.str.contains('|'.join(keyword))]
+                with st.spinner('Loading images...'):
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
-                        for j, img in enumerate(df.iloc[i].images):
-                            st.write(img['src'])
+                        st.write(f'{url}products/{df.iloc[i].handle}')
+                        try:
+                            price = df.iloc[i]['variants'][0]['price']
+                        except:
+                            price = None
+                        if price is not None:
+                            st.write(f'Price: ${price}')
+                        st.write(df.iloc[i]['body_html'], unsafe_allow_html=True)
+                        for img in df.iloc[i].images:
+                            st.image(img['src'], use_column_width=True)
                         st.markdown('---')
+                # if st.checkbox('Show Image Links'):
+                #     for i in selected.index:
+                #         st.subheader(df.iloc[i].title)
+                #         for j, img in enumerate(df.iloc[i].images):
+                #             st.write(img['src'])
+                #         st.markdown('---')
 
 
 
