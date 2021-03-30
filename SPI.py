@@ -57,7 +57,7 @@ def main():
             elif keyword:
                 df['lower'] = df.title.str.lower()
                 keyword = [x.lower() for x in keyword.split()]
-                selected = df.loc[df.lower.str.contains('|'.join(keyword))]
+                selected = df.loc[df.lower.apply(lambda title: all(word in title for word in keyword))]
                 with st.spinner('Loading images...'):
                     for i in selected.index:
                         st.subheader(df.iloc[i].title)
